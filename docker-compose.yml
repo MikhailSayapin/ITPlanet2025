@@ -1,6 +1,5 @@
 networks:
   nginx-network:
-#    external: true
   services-network:
     internal: true
 
@@ -72,23 +71,18 @@ services:
     restart: unless-stopped
 
   pgadmin:
-#    container_name: pgadmin_container
     image: dpage/pgadmin4:9.0
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
       PGADMIN_CONFIG_WTF_CSRF_ENABLED: 'False'
-#      PGADMIN_CONFIG_SERVER_MODE: 'True'
     volumes:
       - pgadmin:/var/lib/pgadmin
     expose:
       - "80"
-#    ports:
-#      - "55537:80"
     networks:
       - services-network
     healthcheck:
-#      test: ["CMD", "curl", "-f", "http://localhost:80/misc/ping"]
       test: ["CMD", "wget", "-O", "-", "http://localhost:80/misc/ping"]
       interval: 10s
       timeout: 5s
@@ -130,9 +124,6 @@ services:
       - services-network
     expose:
       - "8080"
-#    ports:
-#      - "55536:8080"
-#      - "55536:8443"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/"]
       interval: 10s

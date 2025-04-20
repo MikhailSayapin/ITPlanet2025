@@ -13,3 +13,5 @@
 │   └── encrypt_script.sh # Скрипт для шифровния volumes-бэкапов и отправки на удалённый сервер
 └── Отчёт участника конкурса2.pdf
 ```
+## Схема сети
+![Schema](https://github.com/user-attachments/assets/5053da37-a82a-4954-8448-5117aa38e4b2)

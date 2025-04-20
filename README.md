@@ -15,3 +15,12 @@
 ```
 ## Схема сети
 ![Schema](https://github.com/user-attachments/assets/5053da37-a82a-4954-8448-5117aa38e4b2)
+### Сборка проекта:
+```
+git clone https://github.com/MikhailSayapin/ITPlanet2025.git
+cd ITPlanet2025/
+```
+### Запуск проекта:
+`docker-compose up -d`
+### Остановка проекта:
+`docker-compose down`

@@ -1,0 +1,163 @@
+high-availability {
+    vrrp {
+        group vr_ext {
+            address 10.0.2.254/24 {
+            }
+            interface eth0
+            priority 100
+            vrid 100
+        }
+        group vr_int {
+            address 10.0.0.254/24 {
+            }
+            interface eth1
+            priority 100
+            vrid 100
+        }
+    }
+}
+interfaces {
+    ethernet eth0 {
+        address dhcp
+        hw-id 08:00:27:de:a8:42
+    }
+    ethernet eth1 {
+        address 10.0.0.1/24
+        hw-id 08:00:27:4b:e2:26
+    }
+    loopback lo {
+    }
+}
+nat {
+    destination {
+        rule 3 {
+            destination {
+                port 80
+            }
+            inbound-interface {
+                name eth0
+            }
+            protocol tcp
+            translation {
+                address 10.0.0.3
+                port 80
+            }
+        }
+    }
+    source {
+        rule 2 {
+            outbound-interface {
+                name eth0
+            }
+            source {
+                address 10.0.0.0/24
+            }
+            translation {
+                address masquerade
+            }
+        }
+    }
+}
+service {
+    ntp {
+        allow-client {
+            address 127.0.0.0/8
+            address 169.254.0.0/16
+            address 10.0.0.0/8
+            address 172.16.0.0/12
+            address 192.168.0.0/16
+            address ::1/128
+            address fe80::/10
+            address fc00::/7
+        }
+        server ntp1.niiftri.irkutsk.ru {
+        }
+        server ntp1.vniiftri.ru {
+        }
+        server ntp2.niiftri.irkutsk.ru {
+        }
+        server ntp2.vniiftri.ru {
+        }
+        server ntp3.vniiftri.ru {
+        }
+        server ntp4.vniiftri.ru {
+        }
+        server ntp.sstf.nsk.ru {
+        }
+        server vniiftri2.khv.ru {
+        }
+        server vniiftri.khv.ru {
+        }
+    }
+    ssh {
+        listen-address 10.0.2.21
+        port 55535
+    }
+}
+suricata {
+    enable yes
+    netmap {
+        interface eth0 {
+            copy-mode tap
+        }
+    }
+    outputs {
+        fast {
+            enabled yes
+        }
+    }
+    stats {
+        enabled yes
+    }
+    update-rules {
+        local-storage LOCAL {
+            path /var/lib/suricata/rules/
+        }
+    }
+}
+system {
+    config-management {
+        commit-revisions 100
+    }
+    conntrack {
+        modules {
+            ftp
+            h323
+            nfs
+            pptp
+            sip
+            sqlnet
+            tftp
+        }
+    }
+    console {
+        device ttyS0 {
+            speed 115200
+        }
+    }
+    flow-accounting {
+        interface eth0
+        netflow {
+            engine-id 0
+            max-flows 8192
+            sampling-rate 1
+            server 10.0.2.6 {
+                port 2055
+            }
+            source-address 10.0.2.21
+            timeout {
+                expiry-interval 30
+            }
+            version 9
+        }
+    }
+    host-name ngfwos
+    login {
+        user admin {
+            authentication {
+                encrypted-password ****************
+            }
+        }
+    }
+    name-server 8.8.8.8
+}

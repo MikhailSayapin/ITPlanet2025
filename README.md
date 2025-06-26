@@ -11,8 +11,8 @@
 ├── scripts/ 
 │   ├── backup_script.sh # Скрипт для создания volumes-бэкапов
 │   └── encrypt_script.sh # Скрипт для шифрования volumes-бэкапов и отправки на удалённый сервер
-├── Задание_GH.pdf
-└── Отчёт участника конкурса2.pdf
+├── Задание_GH.pdf # ТЗ проекта
+└── Отчёт.pdf # Описание решения
 ```
 ## Схема сети
 ![Schema](https://github.com/user-attachments/assets/5053da37-a82a-4954-8448-5117aa38e4b2)

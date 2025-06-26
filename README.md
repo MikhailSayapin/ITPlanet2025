@@ -3,7 +3,7 @@
 ```
 .
 ├── django/ # Файлы для работы django-контейнера
-├── docker-compose.yml #Запуск всех сервисов и сетей
+├── docker-compose.yml # Запуск всех сервисов и сетей
 ├── NGFWconfiguration # Конфигурация InfoWatch ARMA Стена
 ├── nginx/ # Файлы для работы nginx-контейнера
 │   ├── certs/ # Сертификаты для работы tls-соединения
